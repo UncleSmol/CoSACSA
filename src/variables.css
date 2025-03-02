@@ -1,0 +1,143 @@
+/* =======================
+   Color Variables
+======================= */
+:root {
+    /* Primary Colors */
+    --color-green: #007500;
+    --color-light-green: #84ff84;
+    --color-gold: #d4af37;
+    --color-dark-gold: #b89729;
+
+    /* Accent Colors */
+    --color-accent: #ffcc00;
+    --color-accent-light: #ffe680;
+    --color-accent-dark: #cc9900;
+
+    /* Neutral Colors */
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-gray: #4d4d4d;
+    --color-light-gray: #e2e2e2;
+    --color-dark-gray: #2a2a2a;
+
+    /* Status Colors */
+    --color-success: #28a745;
+    --color-warning: #ffc107;
+    --color-danger: #dc3545;
+    --color-info: #17a2b8;
+
+    /* Gradient Colors */
+    --gradient-primary: linear-gradient(135deg, var(--color-green), var(--color-gold));
+    --gradient-accent: linear-gradient(135deg, var(--color-accent-light), var(--color-accent-dark));
+
+    /* Glow Effects */
+    --glow-primary: 0 0 10px var(--color-green);
+    --glow-gold: 0 0 10px var(--color-gold);
+    --glow-accent: 0 0 10px var(--color-accent);
+
+    /* Highlights */
+    --highlight-green: rgba(0, 117, 0, 0.1);
+    --highlight-gold: rgba(212, 175, 55, 0.1);
+}
+
+/* =======================
+   Font Variables
+======================= */
+:root {
+    --font-family-primary: 'Exo 2', sans-serif;
+    --font-family-secondary: 'Montserrat Alternates', sans-serif;
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-md: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 24px;
+    --font-size-xxl: 32px;
+
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+}
+
+/* =======================
+   Spacing Variables
+======================= */
+:root {
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-xxl: 48px;
+}
+
+/* =======================
+   Border Variables
+======================= */
+:root {
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+    --border-radius-full: 9999px;
+
+    --border-width-thin: 1px;
+    --border-width-medium: 2px;
+    --border-width-thick: 3px;
+
+    --border-color-primary: var(--color-green);
+    --border-color-accent: var(--color-accent);
+}
+
+/* =======================
+   Shadow Variables
+======================= */
+:root {
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* =======================
+   Transition Variables
+======================= */
+:root {
+    --transition-fast: 0.2s ease-in-out;
+    --transition-medium: 0.4s ease-in-out;
+    --transition-slow: 0.6s ease-in-out;
+}
+
+/* =======================
+   Custom Utilities
+======================= */
+.button-primary {
+    background: var(--gradient-primary);
+    color: var(--color-white);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    transition: background var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.button-primary:hover {
+    background: var(--color-green);
+    box-shadow: var(--glow-primary);
+}
+
+.text-glow {
+    text-shadow: var(--glow-gold);
+}
+
+.card {
+    background: var(--color-white);
+    border: var(--border-width-thin) solid var(--border-color-primary);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-md);
+    transition: box-shadow var(--transition-fast);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-xl);
+}

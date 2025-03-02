@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en" class="overflow-x-hidden">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoSACSA Gauteng - Demonstration Web App</title>
+    
+    <!-- Resource hints for faster loading -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Preload critical hero image -->
+    <link rel="preload" href="./src/images/hero_image_1.jpg" as="image">
+    
+    <!-- Add Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Your custom CSS -->
+    <link rel="stylesheet" href="./dist/output.css">
+    
+    <!-- GSAP with defer for non-blocking loading -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+    <script src="./src/animations.js" defer></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900 font-primary overflow-x-hidden">
+
+    <!-- Header -->
+    <header class="bg-primary text-white py-4 w-full fixed top-0 z-50">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <h1 class="text-2xl font-bold">CoSACSA</h1>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:block">
+                <ul class="flex space-x-6">
+                    <li><a href="#home" class="hover:text-gray-300">Home</a></li>
+                    <li><a href="#about" class="hover:text-gray-300">About Us</a></li>
+                    <li><a href="#events" class="hover:text-gray-300">Events</a></li>
+                    <li><a href="#media" class="hover:text-gray-300">Media</a></li>
+                    <li><a href="#contact" class="hover:text-gray-300">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Hamburger Menu Button -->
+            <button id="menu-toggle" class="lg:hidden">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+        </div>
+    </header>
+
+     <!-- Mobile Menu (outside container for full-width) -->
+        <div id="mobile-menu" class="fixed inset-0 bg-primary/95 z-40 transform translate-x-full transition-transform duration-300 lg:hidden">
+            <div class="h-full flex items-center justify-center">
+                <ul class="flex flex-col space-y-8 text-center text-xl">
+                    <li class=""><a href="#home" class="mobile-link hover:text-gray-300 ">Home</a></li>
+                    <li><a href="#about" class="mobile-link hover:text-gray-300">About Us</a></li>
+                    <li><a href="#events" class="mobile-link hover:text-gray-300">Events</a></li>
+                    <li><a href="#media" class="mobile-link hover:text-gray-300">Media</a></li>
+                    <li><a href="#contact" class="mobile-link hover:text-gray-300">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+
+    <!-- Add spacing for fixed header -->
+    <div class="h-16"></div>
+
+    <!-- Home Section -->
+    <section id="home" class="relative h-screen">
+        <!-- Image Container -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="flex h-full will-change-transform">
+                <!-- High priority for first hero image, lazy load others -->
+                <picture>
+                    <source srcset="./src/images/hero_image_1.webp" type="image/webp">
+                    <img fetchpriority="high" loading="eager" 
+                         src="./src/images/hero_image_1.jpg" 
+                         srcset="./src/images/hero_image_1-small.jpg 480w,
+                                 ./src/images/hero_image_1-medium.jpg 800w,
+                                 ./src/images/hero_image_1.jpg 1200w"
+                         sizes="100vw"
+                         class="hero-slide h-full w-full shrink-0 object-cover transition-all duration-300" 
+                         alt="Hero 1">
+                </picture>
+                <picture>
+                    <source srcset="./src/images/hero_image_2.webp" type="image/webp">
+                    <img loading="lazy" 
+                         src="./src/images/hero_image_2.jpg" 
+                         srcset="./src/images/hero_image_2-small.jpg 480w,
+                                 ./src/images/hero_image_2-medium.jpg 800w,
+                                 ./src/images/hero_image_2.jpg 1200w"
+                         sizes="100vw"
+                         class="hero-slide h-full w-full shrink-0 object-cover" 
+                         alt="Hero 2">
+                </picture>
+                <picture>
+                    <source srcset="./src/images/hero_image_3.webp" type="image/webp">
+                    <img loading="lazy" 
+                         src="./src/images/hero_image_3.jpg" 
+                         srcset="./src/images/hero_image_3-small.jpg 480w,
+                                 ./src/images/hero_image_3-medium.jpg 800w,
+                                 ./src/images/hero_image_3.jpg 1200w"
+                         sizes="100vw"
+                         class="hero-slide h-full w-full shrink-0 object-cover" 
+                         alt="Hero 3">
+                </picture>
+                <picture>
+                    <source srcset="./src/images/hero_image_4.webp" type="image/webp">
+                    <img loading="lazy" 
+                         src="./src/images/hero_image_4.jpg" 
+                         srcset="./src/images/hero_image_4-small.jpg 480w,
+                                 ./src/images/hero_image_4-medium.jpg 800w,
+                                 ./src/images/hero_image_4.jpg 1200w"
+                         sizes="100vw"
+                         class="hero-slide h-full w-full shrink-0 object-cover" 
+                         alt="Hero 4">
+                </picture>
+            </div>
+            <div class="absolute inset-0 bg-black/70"></div>
+            <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
+        </div>
+        <!-- Text Overlay -->
+        <div class="relative z-10 container mx-auto h-full flex items-center justify-center text-center text-white">
+            <div class="px-4 max-w-3xl">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-shadow">UNITED IN COLLEGE SPORTS, ARTS AND CULTURE</h2>
+                <p class="text-xl mb-6 text-shadow">Promoting unity through sports, arts, and culture.</p>
+                <a href="#events" class="btn-primary hover:bg-primary-light transform transition-all hover:scale-105 bg-opacity-75">View Events</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="relative bg-white pt-16">
+        <div class="container mx-auto px-4">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <span class="block text-primary font-semibold tracking-wider mb-4">WHO WE ARE</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+                    About CoSACSA
+                </h2>
+                <div class="w-24 h-1.5 bg-gradient-to-r from-primary/80 to-gold mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="grid md:grid-cols-2 gap-12 items-start max-w-7xl mx-auto">
+                <!-- Left Column - Story & Mission -->
+                <div class="space-y-8 backdrop-blur-sm bg-white rounded-3xl p-8 shadow-xl">
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-bold text-primary flex items-center gap-3">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
+                            </svg>
+                            Our Story
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed">
+                            CoSACSA Gauteng is the provincial branch of the College Sports, Arts and Culture South Africa. We are committed to promoting sports, arts, and culture within the TVET sector.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-bold text-primary flex items-center gap-3">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                            </svg>
+                            Our Mission
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed">
+                            To create platforms that enable TVET college students to showcase their talents, develop their skills, and build meaningful connections.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Column - Stats -->
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="stat-item group p-6 backdrop-blur-sm bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 text-center">
+                        <div class="icon-wrapper mb-4 p-3 bg-primary/20 rounded-full mx-auto">
+                            <svg class="w-8 h-8 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838l-2.727 1.17 3.721 1.596a1 1 0 00.788 0l7-3a1 1 0 000-1.84l-7-3z"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-number text-4xl font-bold text-primary mb-2" data-value="15">15+</div>
+                        <div class="stat-label text-sm text-gray-600 font-medium uppercase tracking-wider">Colleges</div>
+                    </div>
+
+                    <div class="stat-item group p-6 backdrop-blur-sm bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 text-center">
+                        <div class="icon-wrapper mb-4 p-3 bg-gold/20 rounded-full mx-auto">
+                            <svg class="w-8 h-8 text-gold" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-number text-4xl font-bold text-gold mb-2" data-value="5000">5000+</div>
+                        <div class="stat-label text-sm text-gray-600 font-medium uppercase tracking-wider">Students</div>
+                    </div>
+
+                    <div class="stat-item group p-6 backdrop-blur-sm bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 text-center">
+                        <div class="icon-wrapper mb-4 p-3 bg-primary/20 rounded-full mx-auto">
+                            <svg class="w-8 h-8 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5 3a2 2 0 012-2h6a2 2 0 012 2v11h2a2 2 0 012 2v1a2 2 0 01-2 2H3a2 2 0 01-2-2v-1a2 2 0 012-2h2V3z"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-number text-4xl font-bold text-primary mb-2" data-value="20">20+</div>
+                        <div class="stat-label text-sm text-gray-600 font-medium uppercase tracking-wider">Annual Events</div>
+                    </div>
+
+                    <div class="stat-item group p-6 backdrop-blur-sm bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 text-center">
+                        <div class="icon-wrapper mb-4 p-3 bg-gold/20 rounded-full mx-auto">
+                            <svg class="w-8 h-8 text-gold" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-number text-4xl font-bold text-gold mb-2" data-value="12">12</div>
+                        <div class="stat-label text-sm text-gray-600 font-medium uppercase tracking-wider">Sport Codes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="bg-white py-16" style="content-visibility: auto; contain-intrinsic-size: 1px 1500px;">
+        <div class="container mx-auto px-4">
+            <!-- Section Header -->
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold text-primary mb-4">Upcoming Events</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Join us in celebrating talent, fostering competition, and building communities through our diverse range of events.</p>
+            </div>
+
+            <!-- Events Navigation -->
+            <div class="flex justify-center mb-12">
+                <nav class="inline-flex p-1 bg-gray-100 rounded-lg">
+                    <button class="event-tab active px-6 py-2 rounded-md text-sm font-medium" data-tab="featured">Featured</button>
+                    <button class="event-tab px-6 py-2 rounded-md text-sm font-medium" data-tab="sports">Sports</button>
+                    <button class="event-tab px-6 py-2 rounded-md text-sm font-medium" data-tab="arts">Arts & Culture</button>
+                    <button class="event-tab px-6 py-2 rounded-md text-sm font-medium" data-tab="workshops">Workshops</button>
+                </nav>
+            </div>
+
+            <!-- Events Content -->
+            <div class="event-content" id="featured">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Featured Event Card -->
+                    <div class="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <picture>
+                                <source srcset="./src/images/arts_festival.webp" type="image/webp">
+                                <img loading="lazy" 
+                                     src="./src/images/arts_festival.jpg" 
+                                     srcset="./src/images/arts_festival-small.jpg 480w,
+                                             ./src/images/arts_festival.jpg 800w"
+                                     sizes="(max-width: 768px) 100vw, 33vw"
+                                     alt="Arts Festival" class="object-cover w-full h-64">
+                            </picture>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 right-4 text-white">
+                                <span class="inline-block px-3 py-1 bg-primary/80 rounded-full text-sm mb-2">Featured</span>
+                                <h3 class="text-xl font-bold">2025 CoSACSA Arts & Culture Festival</h3>
+                                <p class="text-sm text-gray-200">March 15-20, 2025</p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-primary font-semibold">Pretoria State Theatre</span>
+                                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">5 Days</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">A celebration of creative excellence featuring performances, exhibitions, and competitions across various artistic disciplines.</p>
+                            <div class="space-y-3">
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <svg class="w-5 h-5 mr-2 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
+                                    </svg>
+                                    Registration Deadline: February 28, 2025
+                                </div>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <svg class="w-5 h-5 mr-2 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                                    </svg>
+                                    Expected Participants: 1000+
+                                </div>
+                            </div>
+                            <div class="mt-6 flex justify-between items-center">
+                                <button class="btn-primary py-2 px-4 rounded-lg flex items-center gap-2">
+                                    Register Now
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                    </svg>
+                                </button>
+                                <button class="text-primary hover:text-primary-dark transition-colors duration-200" data-event-details="arts-festival">
+                                    More Info
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- National Athletics Card -->
+                    <div class="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <picture>
+                                <source srcset="./src/images/athletics.webp" type="image/webp">
+                                <img loading="lazy" 
+                                     src="./src/images/athletics.jpg" 
+                                     srcset="./src/images/athletics-small.jpg 480w,
+                                             ./src/images/athletics.jpg 800w"
+                                     sizes="(max-width: 768px) 100vw, 33vw"
+                                     alt="National Athletics" class="object-cover w-full h-64">
+                            </picture>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 right-4 text-white">
+                                <span class="inline-block px-3 py-1 bg-gold/80 rounded-full text-sm mb-2">Sports</span>
+                                <h3 class="text-xl font-bold">2024 National Athletics Championship</h3>
+                                <p class="text-sm text-gray-200">April 5-7, 2024</p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-primary font-semibold">Pilditch Stadium</span>
+                                <span class="bg-gold/10 text-gold px-3 py-1 rounded-full text-sm">3 Days</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">Annual athletics championship featuring track and field events with participants from all TVET colleges.</p>
+                            <!-- ... similar structure for additional content ... -->
+                        </div>
+                    </div>
+
+                    <!-- Leadership Workshop Card -->
+                    <div class="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300">
+                        <!-- ... similar structure ... -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Calendar -->
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold text-center mb-8">Event Calendar</h3>
+                <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+                    <!-- Calendar Header -->
+                    <div class="bg-primary text-white p-4 flex justify-between items-center">
+                        <button class="hover:bg-white/20 p-2 rounded-lg transition-colors duration-200">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <h4 class="text-xl font-bold">March 2024</h4>
+                        <button class="hover:bg-white/20 p-2 rounded-lg transition-colors duration-200">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Calendar Grid -->
+                    <div class="grid grid-cols-7 gap-px bg-gray-200">
+                        <!-- ... Calendar implementation ... -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Categories -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Sports Category -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-primary mb-4">Sports Events</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-4">
+                                <span class="w-2 h-2 bg-primary rounded-full"></span>
+                                <span>Athletics Championship</span>
+                            </li>
+                            <!-- ... more events ... -->
+                        </ul>
+                    </div>
+                </div>
+                <!-- ... other categories ... -->
+            </div>
+        </div>
+
+        <!-- Event Details Modal -->
+        <div id="eventModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+            <!-- Modal content -->
+        </div>
+    </section>
+
+    <!-- Media Section -->
+   <section id="media" class="bg-gradient-to-b from-gray-100 to-white py-20 overflow-hidden" style="content-visibility: auto; contain-intrinsic-size: 1px 3000px;">
+        <div class="container mx-auto px-4">
+            <!-- Section Header -->
+            <div class="text-center mb-16 media-header">
+                <span class="block text-primary font-semibold tracking-wider mb-4">STAY CONNECTED</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-gold">
+                    Media & Social Hub
+                </h2>
+                <div class="w-24 h-1.5 bg-gradient-to-r from-primary to-gold mx-auto rounded-full"></div>
+                <p class="mt-6 text-gray-600 max-w-2xl mx-auto">Follow our journey through videos, photos, and social media as we celebrate talent and build community across TVET colleges.</p>
+            </div>
+
+            <!-- Media Tabs -->
+            <div class="flex justify-center mb-12 media-tabs">
+                <nav class="inline-flex flex-wrap justify-center p-1 bg-gray-100 rounded-lg shadow-md">
+                    <button class="media-tab active px-5 py-3 rounded-md text-sm font-medium transition-all duration-300 m-1" data-tab="videos">Videos</button>
+                    <button class="media-tab px-5 py-3 rounded-md text-sm font-medium transition-all duration-300 m-1" data-tab="photos">Photos</button>
+                    <button class="media-tab px-5 py-3 rounded-md text-sm font-medium transition-all duration-300 m-1" data-tab="instagram">Instagram</button>
+                    <button class="media-tab px-5 py-3 rounded-md text-sm font
+                                        <button class="media-tab px-5 py-3 rounded-md text-sm font-medium transition-all duration-300 m-1" data-tab="photos">Photos</button>
+                    <button class="media-tab px-5 py-3 rounded-md text-sm font-medium transition-all duration-300 m-1" data-tab="instagram">Instagram</button>
+                    <button class="media-tab px-5 py-3 rounded-md text-sm font-medium transition-all duration-300 m-1" data-tab="social">Social Updates</button>
+                </nav>
+            </div>
+
+            <!-- Videos Tab Content -->
+            <div class="media-content active" id="videos">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Featured Video Card -->
+                    <div class="col-span-1 lg:col-span-2 bg-white rounded-2xl shadow-lg overflow-hidden media-card">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <iframe class="w-full h-full" 
+                                   loading="lazy" 
+                                   data-src="https://www.youtube.com/embed/Eh1HUdRFsv8" 
+                                   title="CoSACSA Gauteng Arts & Culture Competition 2024" 
+                                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                   allowfullscreen></iframe>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-primary mb-2">CoSACSA Gauteng Arts & Culture Competition 2024</h3>
+                            <p class="text-gray-600 mb-4">Experience the vibrant performances from our annual Arts & Culture Competition showcasing the incredible talent from TVET colleges across Gauteng.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <svg class="w-5 h-5 mr-2 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                4.6K views
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Regular Video Card 1 -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden media-card">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <iframe class="w-full h-full" 
+                                   loading="lazy" 
+                                   data-src="https://www.youtube.com/embed/TSn4aI-i7-8" 
+                                   title="CoSACSA Gauteng Arts & Culture Competition" 
+                                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                   allowfullscreen></iframe>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">Arts & Culture Highlights</h3>
+                            <p class="text-gray-600 mb-4 text-sm">Highlights from our regional competition featuring dance, music, and dramatic performances.</p>
+                        </div>
+                    </div>
+
+                    <!-- Regular Video Card 2 -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden media-card">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <iframe class="w-full h-full" 
+                                   loading="lazy" 
+                                   data-src="https://www.youtube.com/embed/TWDPWFWz5h4" 
+                                   title="CoSACSA National 2024 Arts and Culture Competition" 
+                                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                   allowfullscreen></iframe>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">National Competition 2024</h3>
+                            <p class="text-gray-600 mb-4 text-sm">Our team representing Gauteng at the national level competition.</p>
+                        </div>
+                    </div>
+
+                    <!-- Regular Video Card 3 -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden media-card">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <iframe class="w-full h-full" 
+                                   loading="lazy" 
+                                   data-src="https://www.youtube.com/embed/mv9_Intjawc" 
+                                   title="CoSACSA National 2024 Arts and Culture Competition" 
+                                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                   allowfullscreen></iframe>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-primary mb-2">Cultural Performances</h3>
+                            <p class="text-gray-600 mb-4 text-sm">Traditional and contemporary cultural performances from our talented students.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View More Button -->
+                <div class="text-center mt-10">
+                    <a href="https://www.youtube.com/@cosacsagauteng" target="_blank" class="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg shadow-md hover:bg-primary-light transition-all duration-300">
+                        <span>View More on YouTube</span>
+                        <svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Photos Tab Content -->
+            <div class="media-content hidden" id="photos">
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <!-- Photo Gallery -->
+                    <div class="relative overflow-hidden rounded-xl h-64 photo-item">
+                        <picture>
+                            <source srcset="./src/images/gallery_1.webp" type="image/webp">
+                            <img loading="lazy" 
+                                 src="./src/images/gallery_1.jpg" 
+                                 srcset="./src/images/gallery_1-small.jpg 480w,
+                                         ./src/images/gallery_1.jpg 800w"
+                                 sizes="(max-width: 768px) 50vw, 25vw"
+                                 alt="CoSACSA Performance" class="w-full h-full object-cover">
+                        </picture>
+                        <div class="absolute inset-0 bg-primary/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="bg-white/80 p-2 rounded-full">
+                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="relative overflow-hidden rounded-xl h-64 photo-item">
+                        <picture>
+                            <source srcset="./src/images/gallery_2.webp" type="image/webp">
+                            <img loading="lazy" 
+                                 src="./src/images/gallery_2.jpg" 
+                                 srcset="./src/images/gallery_2-small.jpg 480w,
+                                         ./src/images/gallery_2.jpg 800w"
+                                 sizes="(max-width: 768px) 50vw, 25vw"
+                                 alt="CoSACSA Team" class="w-full h-full object-cover">
+                        </picture>
+                        <div class="absolute inset-0 bg-primary/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="bg-white/80 p-2 rounded-full">
+                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="relative overflow-hidden rounded-xl h-64 photo-item">
+                        <picture>
+                            <source srcset="./src/images/gallery_3.webp" type="image/webp">
+                            <img loading="lazy" 
+                                 src="./src/images/gallery_3.jpg" 
+                                 srcset="./src/images/gallery_3-small.jpg 480w,
+                                         ./src/images/gallery_3.jpg 800w"
+                                 sizes="(max-width: 768px) 50vw, 25vw"
+                                 alt="Arts Festival" class="w-full h-full object-cover">
+                        </picture>
+                        <div class="absolute inset-0 bg-primary/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="bg-white/80 p-2 rounded-full">
+                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="relative overflow-hidden rounded-xl h-64 photo-item">
+                        <picture>
+                            <source srcset="./src/images/gallery_4.webp" type="image/webp">
+                            <img loading="lazy" 
+                                 src="./src/images/gallery_4.jpg" 
+                                 srcset="./src/images/gallery_4-small.jpg 480w,
+                                         ./src/images/gallery_4.jpg 800w"
+                                 sizes="(max-width: 768px) 50vw, 25vw"
+                                 alt="Dance Competition" class="w-full h-full object-cover">
+                        </picture>
+                        <div class="absolute inset-0 bg-primary/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="bg-white/80 p-2 rounded-full">
+                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="relative overflow-hidden rounded-xl h-64 photo-item">
+                        <picture>
+                            <source srcset="./src/images/gallery_5.webp" type="image/webp">
+                            <img loading="lazy" 
+                                 src="./src/images/gallery_5.jpg" 
+                                 srcset="./src/images/gallery_5-small.jpg 480w,
+                                         ./src/images/gallery_5.jpg 800w"
+                                 sizes="(max-width: 768px) 50vw, 25vw"
+                                 alt="Sports Event" class="w-full h-full object-cover">
+                        </picture>
+                        <div class="absolute inset-0 bg-primary/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="bg-white/80 p-2 rounded-full">
+                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="relative overflow-hidden rounded-xl h-64 photo-item">
+                        <picture>
+                            <source srcset="./src/images/gallery_6.webp" type="image/webp">
+                            <img loading="lazy" 
+                                 src="./src/images/gallery_6.jpg" 
+                                 srcset="./src/images/gallery_6-small.jpg 480w,
+                                         ./src/images/gallery_6.jpg 800w"
+                                 sizes="(max-width: 768px) 50vw, 25vw"
+                                 alt="Award Ceremony" class="w-full h-full object-cover">
+                        </picture>
+                        <div class="absolute inset-0 bg-primary/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="bg-white/80 p-2 rounded-full">
+                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="relative overflow-hidden rounded-xl h-64 photo-item">
+                        <picture>
+                            <source srcset="./src/images/gallery_7.webp" type="image/webp">
+                            <img loading="lazy" 
+                                 src="./src/images/gallery_7.jpg" 
+                                 srcset="./src/images/gallery_7-small.jpg 480w,
+                                         ./src/images/gallery_7.jpg 800w"
+                                 sizes="(max-width: 768px) 50vw, 25vw"
+                                 alt="Workshop Session" class="w-full h-full object-cover">
+                        </picture>
+                        <div class="absolute inset-0 bg-primary/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="bg-white/80 p-2 rounded-full">
+                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="relative overflow-hidden rounded-xl h-64 photo-item">
+                        <picture>
+                            <source srcset="./src/images/gallery_8.webp" type="image/webp">
+                            <img loading="lazy" 
+                                 src="./src/images/gallery_8.jpg" 
+                                 srcset="./src/images/gallery_8-small.jpg 480w,
+                                         ./src/images/gallery_8.jpg 800w"
+                                 sizes="(max-width: 768px) 50vw, 25vw"
+                                 alt="Team Building" class="w-full h-full object-cover">
+                        </picture>
+                        <div class="absolute inset-0 bg-primary/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button class="bg-white/80 p-2 rounded-full">
+                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instagram Tab Content -->
+            <div class="media-content hidden" id="instagram">
+                <div class="mb-8 text-center">
+                    <p class="text-gray-600 max-w-2xl mx-auto">Follow us on Instagram <a href="https://www.instagram.com/cosacsa_gauteng/" target="_blank" class="text-primary font-bold">@cosacsa_gauteng</a> for the latest updates and behind-the-scenes content.</p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <!-- Instagram Post 1 -->
+                    <div class="instagram-post bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg">
+                        <div class="relative pb-[100%]">
+                            <picture>
+                                <source srcset="./src/images/instagram_1.webp" type="image/webp">
+                                <img loading="lazy" 
+                                     src="./src/images/instagram_1.jpg" 
+                                     srcset="./src/images/instagram_1-small.jpg 300w,
+                                             ./src/images/instagram_1.jpg 600w"
+                                     sizes="(max-width: 768px) 50vw, 25vw"
+                                     alt="Instagram Post" class="absolute inset-0 w-full h-full object-cover">
+                            </picture>
+                        </div>
+                        <div class="p-3">
+                            <div class="flex items-center mb-2">
+                                <img loading="lazy" src="./src/images/cosacsa_logo.webp" alt="CoSACSA Logo" class="w-5 h-5 rounded-full mr-2 object-cover">
+                                <span class="text-xs font-medium italic truncate max-w-[120px]">cosacsa_gauteng</span>
+                            </div>
+                            <p class="text-xs text-gray-600 line-clamp-2">Celebrating our champions at the 2025 Arts & Culture Festival! 🏆 #CoSACSA #ArtsAndCulture</p>
+                            <div class="flex items-center mt-2 text-xs text-gray-500">
+                                <span class="flex items-center mr-3">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 110-12 6 6 0 010 12zm-1-5h2v-6H9v6z"></path>
+                                    </svg>
+                                    2d
+                                </span>
+                                <span>❤️ 124</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Instagram Post 2 -->
+                    <div class="instagram-post bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg">
+                        <div class="relative pb-[100%]">
+                            <picture>
+                                <source srcset="./src/images/instagram_2.webp" type="image/webp">
+                                <img loading="lazy" 
+                                     src="./src/images/instagram_2.jpg" 
+                                     srcset="./src/images/instagram_2-small.jpg 300w,
+                                             ./src/images/instagram_2.jpg 600w"
+                                     sizes="(max-width: 768px) 50vw, 25vw"
+                                     alt="Instagram Post" class="absolute inset-0 w-full h-full object-cover">
+                            </picture>
+                        </div>
+                        <div class="p-3">
+                            <div class="flex items-center mb-2">
+                                <img loading="lazy" src="./src/images/cosacsa_logo.webp" alt="CoSACSA Logo" class="w-5 h-5 rounded-full mr-2 object-cover">
+                                <span class="text-xs font-medium italic truncate max-w-[120px]">cosacsa_gauteng</span>
+                            </div>
+                            <p class="text-xs text-gray-600 line-clamp-2">Rehearsals in full swing for the upcoming national competition! 🎭 #Dedication #Performance</p>
+                            <div class="flex items-center mt-2 text-xs text-gray-500">
+                                <span class="flex items-center mr-3">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 110-12 6 6 0 010 12zm-1-5h2v-6H9v6z"></path>
+                                    </svg>
+                                    5d
+                                </span>
+                                <span>❤️ 89</span>
+                            </div>
+                        </div>
+                    </div>
+                                        <!-- Instagram Post 3 -->
+                    <div class="instagram-post bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg">
+                        <div class="relative pb-[100%]">
+                            <picture>
+                                <source srcset="./src/images/instagram_3.webp" type="image/webp">
+                                <img loading="lazy" 
+                                     src="./src/images/instagram_3.jpg" 
+                                     srcset="./src/images/instagram_3-small.jpg 300w,
+                                             ./src/images/instagram_3.jpg 600w"
+                                     sizes="(max-width: 768px) 50vw, 25vw"
+                                     alt="Instagram Post" class="absolute inset-0 w-full h-full object-cover">
+                            </picture>
+                        </div>
+                        <div class="p-3">
+                            <div class="flex items-center mb-2">
+                                <img loading="lazy" src="./src/images/cosacsa_logo.webp" alt="CoSACSA Logo" class="w-5 h-5 rounded-full mr-2 object-cover">
+                                <span class="text-xs font-medium italic truncate max-w-[120px]">cosacsa_gauteng</span>
+                            </div>
+                            <p class="text-xs text-gray-600 line-clamp-2">WOMEN'S FOOTBALL CHALLENGE coming soon! ⚽ United in Sports, Arts and Culture. #WomenInSports</p>
+                            <div class="flex items-center mt-2 text-xs text-gray-500">
+                                <span class="flex items-center mr-3">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 110-12 6 6 0 010 12zm-1-5h2v-6H9v6z"></path>
+                                    </svg>
+                                    1w
+                                </span>
+                                <span>❤️ 156</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Instagram Post 4 -->
+                    <div class="instagram-post bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg">
+                        <div class="relative pb-[100%]">
+                            <picture>
+                                <source srcset="./src/images/instagram_4.webp" type="image/webp">
+                                <img loading="lazy" 
+                                     src="./src/images/instagram_4.jpg" 
+                                     srcset="./src/images/instagram_4-small.jpg 300w,
+                                             ./src/images/instagram_4.jpg 600w"
+                                     sizes="(max-width: 768px) 50vw, 25vw"
+                                     alt="Instagram Post" class="absolute inset-0 w-full h-full object-cover">
+                            </picture>
+                        </div>
+                        <div class="p-3">
+                            <div class="flex items-center mb-2">
+                                <img loading="lazy" src="./src/images/cosacsa_logo.webp" alt="CoSACSA Logo" class="w-5 h-5 rounded-full mr-2 object-cover">
+                                <span class="text-xs font-medium italic truncate max-w-[120px]">cosacsa_gauteng</span>
+                            </div>
+                            <p class="text-xs text-gray-600 line-clamp-2">Leadership workshop with our student representatives. Building tomorrow's leaders today! 💼 #Leadership #Skills</p>
+                            <div class="flex items-center mt-2 text-xs text-gray-500">
+                                <span class="flex items-center mr-3">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 110-12 6 6 0 010 12zm-1-5h2v-6H9v6z"></path>
+                                    </svg>
+                                    2w
+                                </span>
+                                <span>❤️ 78</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Instagram Post 5 -->
+                    <div class="instagram-post bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg">
+                        <div class="relative pb-[100%]">
+                            <picture>
+                                <source srcset="./src/images/instagram_5.webp" type="image/webp">
+                                <img loading="lazy" 
+                                     src="./src/images/instagram_5.jpg" 
+                                     srcset="./src/images/instagram_5-small.jpg 300w,
+                                             ./src/images/instagram_5.jpg 600w"
+                                     sizes="(max-width: 768px) 50vw, 25vw"
+                                     alt="Instagram Post" class="absolute inset-0 w-full h-full object-cover">
+                            </picture>
+                        </div>
+                        <div class="p-3">
+                            <div class="flex items-center mb-2">
+                                <img loading="lazy" src="./src/images/cosacsa_logo.webp" alt="CoSACSA Logo" class="w-5 h-5 rounded-full mr-2 object-cover">
+                                <span class="text-xs font-medium italic truncate max-w-[120px]">cosacsa_gauteng</span>
+                            </div>
+                            <p class="text-xs text-gray-600 line-clamp-2">Behind the scenes at our choir practice. The harmony is incredible! 🎵 #ChoirExcellence</p>
+                            <div class="flex items-center mt-2 text-xs text-gray-500">
+                                <span class="flex items-center mr-3">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 110-12 6 6 0 010 12zm-1-5h2v-6H9v6z"></path>
+                                    </svg>
+                                    3w
+                                </span>
+                                <span>❤️ 201</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Instagram Post 6 -->
+                    <div class="instagram-post bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg">
+                        <div class="relative pb-[100%]">
+                            <picture>
+                                <source srcset="./src/images/instagram_6.webp" type="image/webp">
+                                <img loading="lazy" 
+                                     src="./src/images/instagram_6.jpg" 
+                                     srcset="./src/images/instagram_6-small.jpg 300w,
+                                             ./src/images/instagram_6.jpg 600w"
+                                     sizes="(max-width: 768px) 50vw, 25vw"
+                                     alt="Instagram Post" class="absolute inset-0 w-full h-full object-cover">
+                            </picture>
+                        </div>
+                        <div class="p-3">
+                            <div class="flex items-center mb-2">
+                                <img loading="lazy" src="./src/images/cosacsa_logo.webp" alt="CoSACSA Logo" class="w-5 h-5 rounded-full mr-2 object-cover">
+                                <span class="text-xs font-medium italic truncate max-w-[120px]">cosacsa_gauteng</span>
+                            </div>
+                            <p class="text-xs text-gray-600 line-clamp-2">Strategic planning meeting with our Provincial Executive Committee. Big plans ahead! 📊 #Planning #Strategy</p>
+                            <div class="flex items-center mt-2 text-xs text-gray-500">
+                                <span class="flex items-center mr-3">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 110-12 6 6 0 010 12zm-1-5h2v-6H9v6z"></path>
+                                    </svg>
+                                    1m
+                                </span>
+                                <span>❤️ 67</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Instagram Post 7 -->
+                    <div class="instagram-post bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg">
+                        <div class="relative pb-[100%]">
+                            <picture>
+                                <source srcset="./src/images/instagram_7.webp" type="image/webp">
+                                <img loading="lazy" 
+                                     src="./src/images/instagram_7.jpg" 
+                                     srcset="./src/images/instagram_7-small.jpg 300w,
+                                             ./src/images/instagram_7.jpg 600w"
+                                     sizes="(max-width: 768px) 50vw, 25vw"
+                                     alt="Instagram Post" class="absolute inset-0 w-full h-full object-cover">
+                            </picture>
+                        </div>
+                        <div class="p-3">
+                            <div class="flex items-center mb-2">
+                                <img loading="lazy" src="./src/images/cosacsa_logo.webp" alt="CoSACSA Logo" class="w-5 h-5 rounded-full mr-2 object-cover">
+                                <span class="text-xs font-medium italic truncate max-w-[120px]">cosacsa_gauteng</span>
+                            </div>
+                            <p class="text-xs text-gray-600 line-clamp-2">Athletics training in full swing! Our athletes are preparing for the upcoming championships. 🏃‍♂️ #Athletics #Training</p>
+                            <div class="flex items-center mt-2 text-xs text-gray-500">
+                                <span class="flex items-center mr-3">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 110-12 6 6 0 010 12zm-1-5h2v-6H9v6z"></path>
+                                    </svg>
+                                    1m
+                                </span>
+                                <span>❤️ 92</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Instagram Post 8 -->
+                    <div class="instagram-post bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg">
+                        <div class="relative pb-[100%]">
+                            <picture>
+                                <source srcset="./src/images/instagram_8.webp" type="image/webp">
+                                <img loading="lazy" 
+                                     src="./src/images/instagram_8.jpg" 
+                                     srcset="./src/images/instagram_8-small.jpg 300w,
+                                             ./src/images/instagram_8.jpg 600w"
+                                     sizes="(max-width: 768px) 50vw, 25vw"
+                                     alt="Instagram Post" class="absolute inset-0 w-full h-full object-cover">
+                            </picture>
+                        </div>
+                        <div class="p-3">
+                            <div class="flex items-center mb-2">
+                                <img loading="lazy" src="./src/images/cosacsa_logo.webp" alt="CoSACSA Logo" class="w-5 h-5 rounded-full mr-2 object-cover">
+                                <span class="text-xs font-medium italic truncate max-w-[120px]">cosacsa_gauteng</span>
+                            </div>
+                            <p class="text-xs text-gray-600 line-clamp-2">Throwback to last year's cultural showcase. What an amazing event! 🎭 #TBT #CulturalShowcase</p>
+                            <div class="flex items-center mt-2 text-xs text-gray-500">
+                                <span class="flex items-center mr-3">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 110-12 6 6 0 010 12zm-1-5h2v-6H9v6z"></path>
+                                    </svg>
+                                    2m
+                                </span>
+                                <span>❤️ 113</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Instagram Follow Button -->
+                <div class="text-center mt-10">
+                    <a href="https://www.instagram.com/cosacsa_gauteng/" target="_blank" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg shadow-md hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                        <span>Follow us on Instagram</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Social Updates Tab Content -->
+            <div class="media-content hidden" id="social">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- LinkedIn Section -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden social-card">
+                        <div class="bg-[#0077b5] text-white p-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            <h3 class="text-lg font-bold">LinkedIn Updates</h3>
+                        </div>
+                        <div class="p-6">
+                            <div class="border-b border-gray-200 pb-4 mb-4 linkedin-post">
+                                <div class="flex items-center mb-3">
+                                    <img loading="lazy" src="./src/images/cosacsa_logo.webp" alt="CoSACSA Logo" class="w-10 h-10 rounded-full mr-3">
+                                    <div>
+                                        <h4 class="font-bold">CoSACSA GAUTENG</h4>
+                                        <span class="text-gray-500 text-sm">March 1, 2025</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 mb-3">We're excited to announce our partnership with industry leaders to provide internship opportunities for TVET college students. This initiative aims to bridge the gap between education and employment. #CareerDevelopment #TVETColleges</p>
+                                <picture>
+                                    <source srcset="./src/images/linkedin_post_1.webp" type="image/webp">
+                                    <img loading="lazy" 
+                                         src="./src/images/linkedin_post_1.jpg" 
+                                         alt="Partnership Announcement" class="w-full h-full object-cover rounded-lg mb-3">
+                                </picture>
+                                <div class="flex items-center text-gray-500 text-sm">
+                                    <span class="mr-4">👍 86 Likes</span>
+                                    <span>💬 12 Comments</span>
+                                </div>
+                            </div>
+                            
+                            <div class="border-b border-gray-200 pb-4 mb-4 linkedin-post">
+                                <div class="flex items-center mb-3">
+                                    <img loading="lazy" src="./src/images/cosacsa_logo.webp" alt="CoSACSA Logo" class="w-10 h-10 rounded-full mr-3">
+                                    <div>
+                                        <h4 class="font-bold">CoSACSA GAUTENG</h4>
+                                        <span class="text-gray-500 text-sm">February 20, 5</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 mb-3">MZANZI COLLLEGE CHALLENGE and CoSACSA Gauteng bring you the WOMEN'S FOOTBALL CHALLENGE. Be there or be told, we are united in Sports Arts and Culture. #WomenInSports #FootballChallenge</p>
+                                <picture>
+                                    <source srcset="./src/images/linkedin_post_2.webp" type="image/webp">
+                                    <img loading="lazy" 
+                                         src="./src/images/linkedin_post_2.jpg" 
+                                         alt="Women's Football Challenge" class="w-full h-full object-cover rounded-lg mb-3">
+                                </picture>
+                                <div class="flex items-center text-gray-500 text-sm">
+                                    <span class="mr-4">👍 124 Likes</span>
+                                    <span>💬 28 Comments</span>
+                                </div>
+                            </div>
+                                                        <a href="https://www.linkedin.com/in/cosacsa-gauteng-466320235/" target="_blank" class="inline-flex items-center text-[#0077b5] hover:text-[#005582]">
+                                <span>View More on LinkedIn</span>
+                                <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Facebook Feed -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden social-card">
+                        <div class="bg-blue-600 text-white p-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                            <h3 class="text-lg font-bold">Facebook Updates</h3>
+                        </div>
+                        <div class="p-6">
+                            <div class="border-b border-gray-200 pb-4 mb-4 facebook-post">
+                                <div class="flex items-center mb-3">
+                                    <img loading="lazy" src="./src/images/cosacsa_logo.webp" alt="CoSACSA Logo" class="w-10 h-10 rounded-full mr-3">
+                                    <div>
+                                        <h4 class="font-bold">CoSACSA Gauteng</h4>
+                                        <span class="text-gray-500 text-sm">March 1, 2025</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 mb-3">🎭 Congratulations to all the participants in our 2025 Arts & Culture Festival! The talent displayed was truly exceptional. #CoSACSA #ArtsAndCulture</p>
+                                <picture>
+                                    <source srcset="./src/images/facebook_post_1.webp" type="image/webp">
+                                    <img loading="lazy" 
+                                         src="./src/images/facebook_post_1.jpg" 
+                                         alt="Arts Festival Post" class="w-full h-48 object-cover rounded-lg mb-3">
+                                </picture>
+                                <div class="flex items-center text-gray-500 text-sm">
+                                    <span class="mr-4">❤️ 124 Likes</span>
+                                    <span>💬 32 Comments</span>
+                                </div>
+                            </div>
+                            
+                            <div class="border-b border-gray-200 pb-4 mb-4 facebook-post">
+                                <div class="flex items-center mb-3">
+                                    <img loading="lazy" src="./src/images/cosacsa_logo.webp" alt="CoSACSA Logo" class="w-10 h-10 rounded-full mr-3">
+                                    <div>
+                                        <h4 class="font-bold">CoSACSA Gauteng</h4>
+                                        <span class="text-gray-500 text-sm">February 25, 2025</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 mb-3">📢 Registration is now open for our upcoming Leadership Workshop! Don't miss this opportunity to develop your skills. Link in bio. #LeadershipSkills #TVETColleges</p>
+                                <div class="flex items-center text-gray-500 text-sm">
+                                    <span class="mr-4">❤️ 87 Likes</span>
+                                    <span>💬 15 Comments</span>
+                                </div>
+                            </div>
+                            
+                            <a href="https://www.facebook.com/CoSACSAGP" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800">
+                                <span>View More on Facebook</span>
+                                <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Twitter/X Feed -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden social-card">
+                        <div class="bg-black text-white p-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                            </svg>
+                            <h3 class="text-lg font-bold">Twitter/X Updates</h3>
+                        </div>
+                        <div class="p-6">
+                            <div class="border-b border-gray-200 pb-4 mb-4 twitter-post">
+                                <div class="flex items-center mb-3">
+                                    <img loading="lazy" src="./src/images/cosacsa_logo.webp" alt="CoSACSA Logo" class="w-10 h-10 rounded-full mr-3">
+                                    <div>
+                                        <h4 class="font-bold">CoSACSAGauteng</h4>
+                                        <span class="text-gray-500 text-sm">@co_sacsa • March 2, 2025</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 mb-3">The National Athletics Championship is just around the corner! Our athletes are training hard to represent Gauteng. Stay tuned for more updates. #SportExcellence #TVETAthletics</p>
+                                <div class="flex items-center text-gray-500 text-sm">
+                                    <span class="mr-4">🔄 12 Retweets</span>
+                                    <span>❤️ 45 Likes</span>
+                                </div>
+                            </div>
+                            
+                            <div class="border-b border-gray-200 pb-4 mb-4 twitter-post">
+                                <div class="flex items-center mb-3">
+                                    <img loading="lazy" src="./src/images/cosacsa_logo.webp" alt="CoSACSA Logo" class="w-10 h-10 rounded-full mr-3">
+                                    <div>
+                                        <h4 class="font-bold">CoSACSAGauteng</h4>
+                                        <span class="text-gray-500 text-sm">@co_sacsa • February 28, 2025</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 mb-3">Congratulations to our choir for their outstanding performance at the National Arts Competition! Your dedication and talent continue to inspire us all. #ChoirExcellence</p>
+                                <picture>
+                                    <source srcset="./src/images/twitter_post_1.webp" type="image/webp">
+                                    <img loading="lazy" 
+                                         src="./src/images/twitter_post_1.jpg" 
+                                         alt="Choir Performance" class="w-full h-48 object-cover rounded-lg mb-3">
+                                </picture>
+                                <div class="flex items-center text-gray-500 text-sm">
+                                    <span class="mr-4">🔄 28 Retweets</span>
+                                    <span>❤️ 76 Likes</span>
+                                </div>
+                            </div>
+                            
+                            <a href="https://x.com/co_sacsa" target="_blank" class="inline-flex items-center text-black hover:text-gray-700">
+                                <span>View More on X</span>
+                                <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Website Content Preview -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden social-card">
+                        <div class="bg-gradient-to-r from-primary to-gold text-white p-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.5-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.5.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556zm1.166 4.118c.454-1.147.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.268 0C6.412 13.97 6.118 12.546 6.03 11H4.083a6.004 6.004 0 002.783 4.118z" clip-rule="evenodd"></path>
+                            </svg>
+                            <h3 class="text-lg font-bold">Website Updates</h3>
+                        </div>
+                        <div class="p-6">
+                            <div class="border-b border-gray-200 pb-4 mb-4 website-preview">
+                                <h4 class="font-bold text-lg mb-2">Latest News</h4>
+                                <p class="text-gray-700 mb-3">Our website has been updated with the latest event calendar for 2025. Check out the upcoming competitions, workshops, and cultural events happening across Gauteng TVET colleges.</p>
+                                <a href="https://cosacsagauteng.wixsite.com/cosacsa" target="_blank" class="inline-block bg-gray-100 hover:bg-gray-200 rounded-lg p-3 transition-colors duration-300">
+                                    <div class="flex items-center">
+                                        <img loading="lazy" src="./src/images/cosacsa_logo.webp" alt="Website Preview" class="w-20 h-20 object-cover rounded mr-3">
+                                        <div>
+                                            <h5 class="font-medium">CoSACSA Gauteng Official Website</h5>
+                                            <p class="text-sm text-gray-500">cosacsagauteng.wixsite.com</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <a href="https://cosacsagauteng.wixsite.com/cosacsa" target="_blank" class="inline-flex items-center text-primary hover:text-primary-light">
+                                <span>Visit Our Website</span>
+                                <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Social Media Connections -->
+                <div class="mt-12 text-center">
+                    <h3 class="text-xl font-bold mb-6">Connect With Us</h3>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="https://www.facebook.com/CoSACSAGP" target="_blank" class="flex items-center justify-center w-12 h-12 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300 social-icon">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/cosacsa_gauteng/" target="_blank" class="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full hover:from-purple-600 hover:to-pink-600 transition-colors duration-300 social-icon">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                            </svg>
+                        </a>
+                                                <a href="https://x.com/co_sacsa" target="_blank" class="flex items-center justify-center w-12 h-12 bg-black text-white rounded-full hover:bg-gray-800 transition-colors duration-300 social-icon">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/cosacsa-gauteng-466320235/" target="_blank" class="flex items-center justify-center w-12 h-12 bg-[#0077b5] text-white rounded-full hover:bg-[#005582] transition-colors duration-300 social-icon">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.youtube.com/@cosacsagauteng" target="_blank" class="flex items-center justify-center w-12 h-12 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors duration-300 social-icon">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lightbox Modal for Photos -->
+            <div id="lightbox" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center">
+                <button id="close-lightbox" class="absolute top-6 right-6 text-white">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <img id="lightbox-image" src="" alt="Enlarged photo" class="max-w-[90%] max-h-[90vh]">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-white py-12">
+        <div class="container mx-auto text-center">
+            <h2 class="section-title">Contact Us</h2>
+            <form class="max-w-md mx-auto card-custom">
+                <input type="text" placeholder="Your Name" class="w-full mb-4 p-2 border rounded">
+                <input type="email" placeholder="Your Email" class="w-full mb-4 p-2 border rounded">
+                <textarea placeholder="Your Message" class="w-full mb-4 p-2 border rounded"></textarea>
+                <button class="btn-primary hover:bg-primary-light">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 CoSACSA Gauteng. All rights reserved.</p>
+            <div class="flex justify-center space-x-4 mt-2">
+                <a href="https://www.facebook.com/CoSACSAGP/" target="_blank" class="hover:text-gray-300">Facebook</a>
+                <a href="https://www.instagram.com/cosacsa_gauteng/" target="_blank" class="hover:text-gray-300">Instagram</a>
+                <a href="https://x.com/co_sacsa" target="_blank" class="hover:text-gray-300">X (Twitter)</a>
+                <a href="https://www.linkedin.com/in/cosacsa-gauteng-466320235/" target="_blank" class="hover:text-gray-300">LinkedIn</a>
+                <a href="https://www.youtube.com/@cosacsagauteng" target="_blank" class="hover:text-gray-300">YouTube</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add menu.js script -->
+    <script defer src="./src/menu.js"></script>
+    <script defer src="./src/events.js"></script>
+    <script src="./src/optimizations.js" defer></script>
+
+    
+    <!-- Add Intersection Observer for lazy loading -->
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lazy load images with data-src attribute
+            const lazyImages = document.querySelectorAll('img[data-src]');
+            const lazyIframes = document.querySelectorAll('iframe[data-src]');
+            
+            const lazyLoadObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const element = entry.target;
+                        if (element.dataset.src) {
+                            element.src = element.dataset.src;
+                            element.removeAttribute('data-src');
+                        }
+                        observer.unobserve(element);
+                    }
+                });
+            }, { rootMargin: '200px 0px' });
+            
+            lazyImages.forEach(image => lazyLoadObserver.observe(image));
+            lazyIframes.forEach(iframe => lazyLoadObserver.observe(iframe));
+        });
+    </script>
+    
+    <!-- Add JavaScript for Tab Switching and GSAP Animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.media-tab');
+            const contents = document.querySelectorAll('.media-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Hide all content sections
+                    contents.forEach(c => c.classList.add('hidden'));
+                    // Show the corresponding content
+                    const targetContent = document.getElementById(tab.dataset.tab);
+                    targetContent.classList.remove('hidden');
+                    
+                    // Trigger GSAP animation for the new content
+                    animateContent(targetContent);
+                });
+            });
+            
+            // Photo lightbox functionality
+            const photoItems = document.querySelectorAll('.photo-item');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightbox-image');
+            const closeLightbox = document.getElementById('close-lightbox');
+            
+            photoItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const imgSrc = item.querySelector('img').src;
+                    lightboxImage.src = imgSrc;
+                    lightbox.classList.remove('hidden');
+                    lightbox.classList.add('flex');
+                });
+            });
+            
+            closeLightbox.addEventListener('click', () => {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+            });
+            
+            // GSAP Animations
+            function initAnimations() {
+                // Header animation
+                gsap.from('.media-header', {
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '.media-header',
+                        start: 'top 80%'
+                    }
+                });
+                
+                // Tabs animation
+                gsap.from('.media-tabs', {
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.6,
+                    ease: 'power3.out',
+                    delay: 0.3,
+                    scrollTrigger: {
+                        trigger: '.media-tabs',
+                        start: 'top 80%'
+                    }
+                });
+                
+                // Initial content animation
+                animateContent(document.querySelector('.media-content.active'));
+                
+                // Animate social icons
+                gsap.from('.social-icon', {
+                    scale: 0.5,
+                    opacity: 0,
+                    duration: 0.5,
+                    stagger: 0.1,
+                    ease: 'back.out(1.7)',
+                    scrollTrigger: {
+                        trigger: '.social-icon',
+                        start: 'top 90%'
+                    }
+                });
+                
+                // Hero section animation
+                gsap.to('.hero-slide:not(:first-child)', {
+                    opacity: 0,
+                    duration: 0
+                });
+                
+                // Hero slider animation
+                let currentSlide = 0;
+                const heroSlides = document.querySelectorAll('.hero-slide');
+                
+                setInterval(() => {
+                    gsap.to(heroSlides[currentSlide], {
+                        opacity: 0,
+                        duration: 1,
+                        ease: 'power2.inOut'
+                    });
+                    
+                    currentSlide = (currentSlide + 1) % heroSlides.length;
+                    
+                    gsap.to(heroSlides[currentSlide], {
+                        opacity: 1,
+                        duration: 1,
+                        ease: 'power2.inOut'
+                    });
+                }, 5000);
+            }
+            
+            function animateContent(contentElement) {
+                // Clear any existing animations
+                gsap.killTweensOf(contentElement.querySelectorAll('.media-card, .photo-item, .social-card, .instagram-post'));
+                
+                // Cards animation
+                gsap.from(contentElement.querySelectorAll('.media-card, .photo-item, .social-card, .instagram-post'), {
+                    y: 40,
+                    opacity: 0,
+                    duration: 0.6,
+                    stagger: 0.1,
+                    ease: 'power3.out'
+                });
+            }
+            
+            // Initialize animations when GSAP is loaded
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+                initAnimations();
+            } else {
+                // If GSAP isn't loaded yet, wait for it
+                window.addEventListener('load', () => {
+                    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                        gsap.registerPlugin(ScrollTrigger);
+                        initAnimations();
+                    } else {
+                        console.warn('GSAP or ScrollTrigger not loaded');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
